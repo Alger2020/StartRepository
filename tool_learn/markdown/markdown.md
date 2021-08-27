@@ -80,8 +80,17 @@
 	在代码前后行使用三个反义号`` ``` ``  
 	在围栏代码块前行的反义号后加指定的编程语言可语法高亮，如`` ```c ``  
 
-3.  `  we  `
-	    
+3. 脚注  
+	创建一个脚注的引用，请在方括号里面添加一个插入符`^`以及一个标识符`标识符可以是数字或字母，但不能包含空格`  
+	脚注请选择一个合适的位置，输出格式`[^标识符]:注解文本`   
+here is a footnote[^1]:wawa,ok[^oo]:wowo    
+heri is a footnote[^a],sfsfsfsf[^y]  
+saffafaf   
+fadfadfafadfasfd  
+[^a]: okokok  
+[^y]: kokok  
+affafsgg  
+ggag  
     
      	
 
