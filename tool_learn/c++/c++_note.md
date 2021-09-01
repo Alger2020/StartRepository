@@ -28,6 +28,21 @@ private:
 ```c++  
 class ABC  //类声明部分  
 {
-	int d0  
+	int d0;  //int型数据成员d0，未指定访问权限时默认为private  
+public:
+	float d1;  //float型数据成员d1，访问权限为public  
+	void fun1();  //函数成员fun1,默认为其前一个成员的权限，即public  
+protected:
+	bool d2;  //bool型数据成员d2，访问权限为protected  
+	void fun2 (char ch) //函数成员fun2默认为其前一个成员的权限，即protected  
+private:  
+	cha d3,str[10];  //char型数据成员d3和str(数组)，访问权限为private  
+	int fun3();  //函数成员fun3，默认为其前一个成员的权限，即private  
+};
+
+//类实现部分  
+void ABC::fun1() {......} //函数成员fun1的完整定义代码  
+void ABC::fun2(char ch) {......} //函数成员fun2的完整定义代码  
+int ABC::fun3() {......} //函数成员fun3的完整定义代码 
 ``` 
 
