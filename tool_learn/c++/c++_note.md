@@ -87,6 +87,6 @@ int ABC::fun3() {......} //函数成员fun3的完整定义代码
 * ### 标准输入/输出流  
 	* 键盘（cin）、显示器（cout）  	
 	* 相关声明语句  
-	> #include<iostream>  //标准输入/输出流的头文件  
-	> using namespace std;  //声明命名空间std  
+> #include<iostream>  //标准输入/输出流的头文件  
+> using namespace std;  //声明命名空间std  
 
