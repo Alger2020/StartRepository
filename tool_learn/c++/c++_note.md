@@ -92,6 +92,7 @@ double Circle::Show(Circle* const this)
 	cout<<this->CArea()<<endl;  
 	cout<<this->Clen()<<endl;  
 }  
+```
 * 对象创建  
 > 每个对象所占用的内存空间都等于类中全部数据成员所需内存空间的总和    
 > 多个同类对象共用同一个函数，内存中只需要保存一份函数代码   
