@@ -66,8 +66,45 @@ int ABC::fun3() {......} //函数成员fun3的完整定义代码
 
 
 
+## 类与对象的编译原理    
+* 类代码的编译  
+```c++  
+//函数成员CArea:调整前  
+double Circle::CArea()//求面积  
+{
+	return (3.14*r*r);
+}  
+//调整后  
+double Circle::CArea(Circle* const this)
+{
+	return (3.14*this->r*this->r);
+}
 
+//函数成员Show:调整前  
+doble Circle::Show()//显示面积和周长  
+{
+	cout<<CArea()<<endl;  
+	cout<<CLen()<<endl;  
+}  
+//调整后  
+double Circle::Show(Circle* const this)
+{
+	cout<<this->CArea()<<endl;  
+	cout<<this->Clen()<<endl;  
+}  
+* 对象创建  
+> 每个对象所占用的内存空间都等于类中全部数据成员所需内存空间的总和    
+> 多个同类对象共用同一个函数，内存中只需要保存一份函数代码   
+* 调用对象函数成员语句的编译  
+```c++  
+Circle obj1;
+obj1.Input();  
+//编译器对其函数进行调整处理，如下  
+Input(&obj1);  
 
+void Circle::Input(Circle * const this) 
+{cin>>this->r;}  
+```  
 
 
 
