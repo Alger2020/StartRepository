@@ -108,6 +108,81 @@ void Circle::Input(Circle * const this)
 ```  
 
 
+## 对象的构造与析构  
+* 计算机创建对象为对象分配内存空间称为对象的**构造**，当对象生存期结束计算机销毁对象释放其内存空间称为对象的**析构**  
+* 构造个性化对象  
+	* 初始化对象  
+	* 显示对象构造过程  
+	* 构造时申请额外的内存  
+* 销毁个性化内存  
+	* 释放额外申请的内存  
+* **构造函数**  
+	* 构造函数必须与类名相同。  
+	* 构造函数由计算机自动调用，程序员不能直接调用。  
+	* 构造函数通过形参传递初始值（可指定默认形参值），实现对新建对象数据成员的初始化。  
+	* 构造函数可以重载，即定义多个同名的构造函数，这样可提供多种形式的对象构造方法。  
+	* 构造函数可以定义成内联函数。  
+	* 构造函数没有返回值，定义时不能写函数类型，写void也不行。  
+	* 构造函数通常是类外调用，其访问权限应设为public或protected，不能设为private。  
+	* 一个类如果没有定义构造函数，编译器在编译时将自动添加一个空的构造函数，称为默认构造函数，其形式为：类名(){}  
+* ***初始化对象***  
+```c++  
+Circle::Circle(double x)  //带形参的构造函数  
+{	r=x;   }  
+Cricle::circle()  //不带形参的构造函数  
+{	r=0;	}  
+Circle::Circle(Circle &obj)  
+{	r = obj.r;	}  //拷贝构造函数  
 
 
+//例
+Circle obj(5.0);  
+circle obj;
+Circle obj1(5.0);  
+Circle obj2(obj1);  
+```  
+* ***显示对象的构造过程***  
+```c++  
+Circle::Circle()  //不带形参的构造函数  
+{	r=0；cout<<"Circle()callde."<<endl;}
+Circle::Circle(double x)  //带形参的构造函数  
+{	r=x; cout<<"Circle(double x)called."<<endl; }  
+Circle::Circle(Circle &obj)  //拷贝构造函数  
+{	r=obj.r; cout<<"Circle(Circle &obj)called."<<end;  }  
+
+//例  
+Circle obj;  //显示信息：Circle()called.  
+Circle obj1(5.0);  //显示信息：Circle(double x)called.  
+Circle obj2(obj1):  //显示信息：Circle(Circle &obj)called.  
+```
+* ***构造对象时申请额外内存***  
+```c++  
+class Student //定义一个学生信息类Student  
+{
+publice:  
+	char Name[9],ID[11];  //保存姓名和学号的字符数组Name、ID  
+	int Age;  //保存年龄的int型数据成员Age  
+	double Score；  //保存创建的double型数据成员Score  
+	char * Memo;  //备注成员  
+	Student(char* pName,char* pID, int iniAge,double iniScore,char *pMemo)  //内联构造函数
+{
+	strcpy(Name,pName); strcpy(ID,pID);//初始化姓名，学号  
+	Age = iniAge; Score = iniScore;//初始化年龄、成绩   
+	int len =strlen(pMemo);  //计算实际传递来的备注信息长度  
+	if (len<=0) Memo=0;//没有备注信息。0表示空指针  
+	else 
+{
+	Memo=new char[len+1];//按照实际长度分配内存  
+	strcpy(Memo,pMemo);//初始化备注信息  
+}
+}
+}；
+//......其他函数成员省略   
+
+//例  
+Student obj("张三","1400500001",19,95,"");  
+Student obj("张三","1400500001",19,95,"市级三好学生");  
+```   
+* **析构函数**  
+	* 析构     
 
