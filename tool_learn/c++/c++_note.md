@@ -180,9 +180,53 @@ publice:
 //......其他函数成员省略   
 
 //例  
-Student obj("张三","1400500001",19,95,"");  
-Student obj("张三","1400500001",19,95,"市级三好学生");  
+Student obj1("张三","1400500001",19,95,"");  
+Student obj2("张三","1400500001",19,95,"市级三好学生");  
 ```   
 * **析构函数**  
-	* 析构     
+	* 析构函数名必须为"~类名".  
+	* 析构函数由计算机自动调用，程序员不能直接调用。  
+	* 析构函数没有形参。  
+	* 析构函数没有返回值，定义时不能写函数类型，写void也不行。  
+	* 一个类只能有***一个***析构函数。  
+	* 析构函数通常时类外调用，其访问权限应设为public或protected，不能设为private。   
+	* 一个类如果没有定义析构函数，编译器在编译时将自动添加一个空的析构函数，称为默认析构函数，其形式为：~类名(){}    
+	```c++ 
+	Student ()   
+	{  
+		if(Memo!=0)delete[]Memo;  
+	}  
+	```
+* 拷贝构造函数中的深拷贝与浅拷贝  
+```c++  
+//接上面例子  
+Student obj3(obj2);//将自动调用默认拷贝构造函数  
+
+Student (Student &obj)//默认拷贝构造函数  
+{
+         char Name[9],ID[11];  //保存姓名和学号的字符数组Name、ID
+         int Age;  //保存年龄的int型数据成员Age
+         double Score；  //保存创建的double型数据成员Score
+         char * Memo;  //备注成员
+
+	strpy(Name,obj.Name);strcpy(ID,obj.ID);//拷贝姓名学号   
+	Age=obj.Age;  Score=obj.Score;//拷贝年龄、成绩  
+	Memo=obj.Memo;//拷贝备注信息，注：并没有再分配内存  	
+}      //此为浅拷贝，并没有将obj2的信息完全的拷贝一份，Memo共用指针   
+//深拷贝如下，将obj2.Memo内容完全拷贝一份  
+ Student (Student &obj)//深拷贝构造函数  
+{
+         char Name[9],ID[11];  //保存姓名和学号的字符数组Name、ID
+         int Age;  //保存年龄的int型数据成员Age
+         double Score；  //保存创建的double型数据成员Score
+         char * Memo;  //备注成员
+	int len=strlen(obj.Memo);//计算obj所引用的备注信息长度  
+	if (len<=0) Memo=0;//没有备注信息。0表示空指针  
+	else 
+	{
+		Memo=new char [len+];//按照实际长度分配内存9(需加1个结束符‘\0')  
+		strcpy(Memo,obj.Memo);//拷贝obj所引用对象的备注信息  
+	}
+}  
+```  
 
