@@ -1,3 +1,4 @@
+//P116
 #include<stdio.h>  
 
 void multstore(long,long,long*);
