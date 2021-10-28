@@ -53,14 +53,13 @@ Status ListDelee_Sq(SqList *L,int i,int *e)
 	return ERROR;
 	int *p=&(L->elem[i-1]);
 	*e=*p;
-	int *q=&(L->elem[L->length-1])
+	int *q=&(L->elem[L->length-1]);
 	for(p;p<=q;p++)
 	*p=*(p+1);
 	L->length--;
 	return OK;
 }
 
-int
 
 
 int main()
