@@ -1,8 +1,18 @@
 //顺序表
 #include<stdio.h>   
 #include<stdlib.h>
-#define LIST_INIT_SIZE 100  //初始分配量
-#define LISTINCREMENT 10  //分配增量
+
+/*-------------线性表的动态分配顺序存储结构---------------------*/
+
+#define LIST_INIT_SIZE 100  //线性表存储空间的初始分配量
+#define LISTINCREMENT 10  //线性表存储空间的分配增量
+typedef struct
+{
+	int  *elem;
+	int length;
+	int listsize;
+}SqList;
+
 #define OK 1
 #define ERROR 1
 #define TRUE 1  
@@ -10,12 +20,6 @@
 #define INFEASIBLE -1 
 #define OVERFLOW -2  
 #define Status int  
-typedef struct
-{
-	int  *elem;
-	int length;
-	int listsize;
-}SqList;
 
 Status InitList_Sq(SqList *L)  
 {
