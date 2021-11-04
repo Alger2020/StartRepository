@@ -10,12 +10,12 @@
 #define INFEASIBLE -1 
 #define OVERFLOW -2  
 #define Status int  
+#define ElemType int
 
 /*-------------线性表的动态分配顺序存储结构---------------------*/
 
 #define LIST_INIT_SIZE 100  //线性表存储空间的初始分配量
 #define LISTINCREMENT 10  //线性表存储空间的分配增量
-#define ElemType int
 typedef struct
 {
 	ElemType  *elem;
@@ -88,7 +88,7 @@ Status ListDelee_Sq(SqList *L,int  i,ElemType *e)
 	ElemType *p=&(L->elem[i-1]);  //p为被删除元素的位置  
 	*e=*p;                        //被删除元素的值赋给e
 	ElemType *q=&(L->elem[L->length-1]);//表尾元素的位置
-	for(p;p<q;p++)
+	for(;p<q;p++)
 	{
 		*p=*(p+1);             //被删除元素之后的元素左移
 	}
@@ -129,13 +129,13 @@ void MergeList_Sq(SqList *La,SqList *Lb,SqList *Lc)
 	ElemType* pa=La->elem ;
 	ElemType* pb=La->elem ;
 	Lc->listsize =Lc->length = La->length + Lb->length ;
-	ElemType *pc =Lc->elem =(ElemType )malloc(Lc->listsize *sizeof (ElemType ));
+	ElemType *pc =Lc->elem =(ElemType* )malloc(Lc->listsize *sizeof (ElemType ));
 	if (!Lc->elem )
 	{
 		exit(OVERFLOW);	//存储分配失败   
 	}
-	ElemType* pa_last =La->elem[La->length -1];
-	ElemType* pb_last = Lb->elem[Lb->length -1];
+	ElemType* pa_last =&(La->elem[La->length -1]);
+	ElemType* pb_last = &(Lb->elem[Lb->length -1]);
 	while (pa<=pa_last && pb<=pb_last )	//归并
 	{
 		if(*pa<=*pb)
