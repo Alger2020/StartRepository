@@ -38,12 +38,17 @@
 * 同一个编译单元里，同名的结构不能被声明  
 * 如果你的头文件里有结构  类的声明，很难这个头文件不会在一个编译单元里被#inlude多次 
 * 所有需要“标准头文件结构”   #ifndef A   #define A           #endif
+* only decalrations are allowed to be in .h  
+	* extern variables  
+	* function protutyes  
+	* class/struct declartion     (有点不一样） 
 
 
 
 
-
-
+终极：1 link的时候引入标准库     自己写的其他文件需要在link的时候显示写出  main函数会自动在链接的库文件 other文件寻找对应的东西    .h没有用了 链接的时候
+     2  .h文件只是一种规范，要求头文件在使用和定义处使用  相当于合同  在链接的时候没有特殊作用
+	class/struct  比较特殊 其他声明可以重复定义   但他用到头文件标准结构
 
 
 
