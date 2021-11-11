@@ -1,4 +1,3 @@
-#include<stdio.h>  
 int sum (int *a,int n) 
 {
 	int i,s=0;
