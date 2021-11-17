@@ -1,8 +1,11 @@
 #include<stdio.h> 
 int main() 
 {
-	int a=8;
-	printf("%d\n",a<<2);
+	int i=1;
+	while(i)
+	{
+		printf("%d\n",i++);
+	}
 	return 0;
 }
 
