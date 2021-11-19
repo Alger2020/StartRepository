@@ -1,6 +1,5 @@
 #include<stdio.h>
 void show_float (float fval);
-//void show_float (int eval);
 void show_int (int ival);
 void show_pointer (void* pval);
 void test_show_bytes(int val)
