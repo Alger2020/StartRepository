@@ -4,3 +4,7 @@
 
 # 2
 siezof()返回size_t类型；size_t类型在32位程序中为unsigned int;在64位程序中为unsingned long;
+
+
+# 3
+for（单次表达式;条件表达式;末尾循环体）{中间循环体；}  还记得执行顺序吗
