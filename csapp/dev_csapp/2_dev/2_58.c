@@ -7,9 +7,16 @@ void  show_bytes(byte_pointer start, size_t len)
 	size_t i;
 	for (i=0;i<len;i++)
 	{
-		printf("%.2x",start[i]);
+//		printf("%.2x",start[i]);
 	}
-	printf("\n");
+	printf("%.2x\n",start[i-1]);
+	if(start[i-1]==0)
+	{
+		printf("is_little_endian\n");
+	}
+	else {
+		printf("is_big_endian\n");
+	}
 }
 
 void show_int(int x)
@@ -40,5 +47,15 @@ void show_long (long x)
 void show_double (double x)
 {
 	show_bytes((byte_pointer ) &x,sizeof (double ));
+}
+
+
+int main()
+
+{
+	int a=12345;
+	show_int(a);
+
+	return 0;
 }
 
