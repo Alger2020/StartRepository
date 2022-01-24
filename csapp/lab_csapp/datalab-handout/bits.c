@@ -2,7 +2,7 @@
  * CS:APP Data Lab 
  * 
  * <Please put your name and userid here>
- * <翟景和 alger> 
+ * <翟景和 alger 2022/1/23> 
  * 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
@@ -144,7 +144,8 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+// ******
+  return ~(~x&~y)&~(x&y); 
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -154,7 +155,7 @@ int bitXor(int x, int y) {
  */
 int tmin(void) {
 
-  return 2;
+  return 0x1<<31;
 
 }
 //2
@@ -166,7 +167,9 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return 2;
+
+
+  return !(~(x+1+x))^(!(~x)) ;
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -177,7 +180,11 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+	x=((x>>16)&x);
+	x=((x>>8)&x);
+	x=((x>>4)&x);
+	x=((x>>2)&x);
+  return (x>>1)&(0x1);
 }
 /* 
  * negate - return -x 
@@ -187,7 +194,7 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  return ~x+1;
 }
 //3
 /* 
@@ -200,7 +207,12 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+ 	int ex=!((x>>4)^(0x3)); //0011 1000  判断0011 再 1  再判断00
+	int xe=!((x>>3)&(0x1));
+	int e=!(x&0x6);
+
+       	return (xe|e)&(ex);
+ 
 }
 /* 
  * conditional - same as x ? y : z 
@@ -210,7 +222,11 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+	int temp1=(1<<31);
+	int temp2=temp1+(~temp1);
+	int tempx=(!!x);
+
+  	return ((temp2+tempx)&z)|((~(temp2+tempx))&y);
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -220,7 +236,18 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+	/*对一个数取负等于(~x+1)*/
+	int ex=(x>>31)&0x1;
+	int ey=(y>>31)&0x1;
+	int big=ex&(!ey);
+	int sma=(!((!ex)&ey));	
+	int tempx=(~x+1);
+	int tim=(tempx>>31&0x1)&(!(tempx<<1));
+	int temp=tempx+y;
+	int sign =!((temp>>31)&0x1);
+
+
+	  return (sign&sma)|tim|(sma&big) ;
 }
 //4
 /* 
