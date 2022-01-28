@@ -259,7 +259,12 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4 
  */
 int logicalNeg(int x) {
-  return 2;
+	x=(x>>16)|x;
+	x=(x>>8)|x;
+	x=(x>>4)|x;
+	x=(x>>2)|x;
+	x=((x>>1)|x)&0x1;
+	return x^0x1;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
  *             two's complement
@@ -274,7 +279,23 @@ int logicalNeg(int x) {
  *  Rating: 4
  */
 int howManyBits(int x) {
-  return 0;
+	/*使用二分法*/
+	int sign =x>>31;
+	int b16,b8,b4,b2,b1,b0;
+	x=sign^x;
+	b16=!!(x>>16)<<4;
+	x=x>>b16;
+	b8=!!(x>>8)<<3;
+	x=x>>b8;
+	b4=!!(x>>4)<<2;
+	x=x>>b4;
+	b2=!!(x>>2)<<1;
+	x=x>>b2;
+	b1=!!(x>>1);
+	x=x>>b1;
+	b0=x;
+	return b16+b8+b4+b2+b1+b0+1;
+
 }
 //float
 /* 
@@ -289,7 +310,30 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
-  return 2;
+	 unsigned sign = uf >>31;
+         unsigned exp = uf>>23&0xff;
+	 unsigned frac = uf&0x7fffff;
+	 if(exp==0xff)
+	 {
+		 return uf;
+	 }
+	 else if (exp==0)
+	 {
+		 if((frac<<1)&0x800000)
+		 {
+			 exp++;
+			 frac=(frac<<1)&0x7fffff;
+		 }
+		 else
+		 {
+			 frac=(frac<<1)&0x7fffff;
+		 }
+	 }
+	 else
+	 {
+		 exp++;
+	 }
+	 return (sign<<31)|(exp<<23)|frac;
 }
 /* 
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
@@ -304,8 +348,39 @@ unsigned floatScale2(unsigned uf) {
  *   Rating: 4
  */
 int floatFloat2Int(unsigned uf) {
-  return 2;
-}
+ 	 unsigned sign = uf >>31;
+         unsigned exp = (uf>>23)&0xff;
+	 unsigned frac = (uf&0x7fffff)|0x800000;
+	 int E=exp-127;
+	if((exp==0xff)||(E>31))
+	{
+		return 0x80000000u;
+	}
+	else if (E<0)
+	{
+		return 0;
+	}
+	else
+	{
+		if (E<=23)
+			{
+				frac=(frac>>(23-E));
+			}
+		else{
+			frac=(frac<<(E-23));
+
+		}
+		if(sign)
+		{
+			return ~frac+1;
+		}
+		else
+		{
+			return frac;
+		}
+	}
+
+	}
 /* 
  * floatPower2 - Return bit-level equivalent of the expression 2.0^x
  *   (2.0 raised to the power x) for any 32-bit integer x.
@@ -320,5 +395,25 @@ int floatFloat2Int(unsigned uf) {
  *   Rating: 4
  */
 unsigned floatPower2(int x) {
-    return 2;
+ unsigned 	INF =0xff<<23;
+ unsigned  	exp = (x+127)<<23;
+ unsigned 	frac =0<<23;
+ unsigned       sign =0<<31;
+	if(x>=128)
+	{	return INF;}
+
+	if(x<=-127)
+	{	
+		if(x<-149)
+		{
+			
+		return 0;
+		}
+		else
+		{
+			return 1<<(149-x);
+		}
+	}
+
+	return  sign|exp|frac ;
 }
