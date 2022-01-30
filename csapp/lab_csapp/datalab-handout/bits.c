@@ -395,6 +395,7 @@ int floatFloat2Int(unsigned uf) {
  *   Rating: 4
  */
 unsigned floatPower2(int x) {
+
  unsigned 	INF =0xff<<23;
  unsigned  	exp = (x+127)<<23;
  unsigned 	frac =0<<23;
